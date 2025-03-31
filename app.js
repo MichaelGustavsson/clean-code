@@ -18,7 +18,7 @@ const initApp = () => {
 };
 
 const loadVehicles = async () => {
-  const client = new Http('http://localhost:3000/vehicles');
+  const client = new Http('vehicles');
   const vehicles = await client.get();
 
   for (let vehicle of vehicles) {
@@ -51,7 +51,7 @@ const loadVehicles = async () => {
 };
 
 const loadVehicle = async (vehicleId) => {
-  const client = new Http(`http://localhost:3000/vehicles/${vehicleId}`);
+  const client = new Http(`vehicles/${vehicleId}`);
   const vehicle = await client.get();
 
   if (vehicle) {

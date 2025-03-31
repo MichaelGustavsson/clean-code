@@ -1,6 +1,7 @@
+import { settings } from './config/settings.js';
 export default class HttpClient {
   constructor(endpoint) {
-    this.endpoint = endpoint;
+    this.endpoint = settings.apiUrl + endpoint;
   }
 
   async get() {

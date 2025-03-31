@@ -1,3 +1,5 @@
+import { get } from './scripts/httpClient.js';
+
 const vehicleList = document.querySelector('#vehicles');
 const pageTitle = document.querySelector('.page-title');
 const vehicleImage = document.querySelector('.details img');
@@ -16,13 +18,8 @@ const initApp = () => {
 };
 
 const loadVehicles = async () => {
-  const response = await fetch('http://localhost:3000/vehicles');
-  if (!response.ok) {
-    console.log('Hoppsan det blev fel här!');
-    return;
-  }
+  const vehicles = await get('http://localhost:3000/vehicles');
 
-  const vehicles = await response.json();
   for (let vehicle of vehicles) {
     const section = document.createElement('section');
     section.classList.add('card');
@@ -53,14 +50,8 @@ const loadVehicles = async () => {
 };
 
 const loadVehicle = async (vehicleId) => {
-  const response = await fetch('http://localhost:3000/vehicles/' + vehicleId);
+  const vehicle = await get(`http://localhost:3000/vehicles/${vehicleId}`);
 
-  if (!response.ok) {
-    console.log('Hoppsan det blev fel här!');
-    return;
-  }
-
-  const vehicle = await response.json();
   if (vehicle) {
     pageTitle.innerText = vehicle.manufacturer + ' ' + vehicle.model;
     vehicleImage.src = `./images/${vehicle.imageUrl}`;

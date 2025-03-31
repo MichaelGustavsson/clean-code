@@ -1,4 +1,4 @@
-import { get } from './scripts/httpClient.js';
+import Http from './scripts/httpClient.js';
 
 const vehicleList = document.querySelector('#vehicles');
 const pageTitle = document.querySelector('.page-title');
@@ -18,7 +18,8 @@ const initApp = () => {
 };
 
 const loadVehicles = async () => {
-  const vehicles = await get('http://localhost:3000/vehicles');
+  const client = new Http('http://localhost:3000/vehicles');
+  const vehicles = await client.get();
 
   for (let vehicle of vehicles) {
     const section = document.createElement('section');
@@ -50,7 +51,8 @@ const loadVehicles = async () => {
 };
 
 const loadVehicle = async (vehicleId) => {
-  const vehicle = await get(`http://localhost:3000/vehicles/${vehicleId}`);
+  const client = new Http(`http://localhost:3000/vehicles/${vehicleId}`);
+  const vehicle = await client.get();
 
   if (vehicle) {
     pageTitle.innerText = vehicle.manufacturer + ' ' + vehicle.model;
